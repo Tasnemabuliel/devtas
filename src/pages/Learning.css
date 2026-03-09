@@ -1,0 +1,7 @@
+.learning-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.learning-card { background:#181a22cc; border:1px solid #232323; border-radius:16px; padding:1rem; box-shadow:0 4px 24px #0003; }
+.learning-card h3 { margin:0 0 .3rem 0; }
+.learning-card .status { margin:0; }
+.learning-card .badge { background: var(--accent); color:#0a0a0a; border-radius: 999px; padding: .2rem .6rem; font-weight:800; }
+.learning-card .note { color:#cfcfcf; margin:.4rem 0 0 0; }
+
