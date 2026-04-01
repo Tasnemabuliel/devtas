@@ -201,6 +201,42 @@
   min-width: 0;
 }
 
+.mockup-stack--solutions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.mockup-stack--solutions .mockup-main {
+  position: relative;
+  z-index: 2;
+}
+
+.mockup-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.mockup-stack--solutions .mockup-mini--hero {
+  position: relative;
+  inset: auto;
+  bottom: auto;
+  width: 100%;
+  max-width: 100%;
+  transform: none;
+  opacity: 1;
+  margin-top: 0;
+  box-shadow: 0 14px 45px rgba(17, 24, 39, 0.09);
+}
+
+.float-delayed-2 {
+  animation: heroFloat 7.4s ease-in-out infinite;
+  animation-delay: -3.1s;
+}
+
 .mockup-card {
   background: rgba(255,255,255,0.85);
   border: 1px solid rgba(17,24,39,0.08);
@@ -370,7 +406,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .float-slow,
-  .float-delayed {
+  .float-delayed,
+  .float-delayed-2 {
     animation: none;
   }
 
@@ -487,6 +524,10 @@
     margin-top: 0.65rem;
     transform: none;
   }
+
+  .mockup-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -545,6 +586,12 @@
   .mockup-btn:hover {
     transform: none;
     box-shadow: inherit;
+  }
+
+  .float-slow,
+  .float-delayed,
+  .float-delayed-2 {
+    animation: none;
   }
 }
 .skills-section {

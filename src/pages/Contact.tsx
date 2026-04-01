@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useI18n } from '../i18n/I18nProvider'
+import { INSTAGRAM_HREF, MAILTO_INQUIRY_HREF } from '../constants/siteLinks'
 
 const PHONE_DISPLAY = '054-262-1691'
 const PHONE_LINK = 'tel:+972542621691'
@@ -53,7 +54,8 @@ export default function Contact() {
       <h4 className="contact-sub">{t('contact.subtitle')}</h4>
       <div className="contact-actions">
         <a className="btn small" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">💬 {t('contact.actions.whatsapp')}</a>
-        <a className="btn small outline" href="mailto:?subject=DevTAS%20-%20Website%20Inquiry" target="_blank" rel="noreferrer">✉️ {t('contact.actions.email')}</a>
+        <a className="btn small outline" href={MAILTO_INQUIRY_HREF} target="_blank" rel="noreferrer">✉️ {t('contact.actions.email')}</a>
+        <a className="btn small outline" href={INSTAGRAM_HREF} target="_blank" rel="noreferrer">📷 {t('contact.actions.instagram')}</a>
         <a className="btn small outline" href="https://www.linkedin.com/in/tasneem-abuliel-215090304/" target="_blank" rel="noreferrer">in {t('contact.actions.linkedin')}</a>
       </div>
       <a className="contact-phone" href={PHONE_LINK}>

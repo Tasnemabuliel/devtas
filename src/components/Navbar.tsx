@@ -166,6 +166,7 @@ export default function Navbar() {
             <a href="#home" className={`nav-link${active==='home' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'home')}>{t('nav.home')}</a>
             <a href="#projects" className={`nav-link${active==='projects' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'projects')}>{t('nav.projects')}</a>
             <a href="#services" className={`nav-link${active==='services' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'services')}>{t('nav.services')}</a>
+            <a href="#faq" className={`nav-link${active==='faq' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'faq')}>{t('nav.faq')}</a>
             <a href="#contact" className={`nav-link${active==='contact' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'contact')}>{t('nav.contact')}</a>
           </div>
 

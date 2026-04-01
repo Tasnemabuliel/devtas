@@ -8,6 +8,7 @@ export const he = {
     skills: "כישורים",
     projects: "פרויקטים",
     services: "מה אני בונה",
+    faq: "שאלות נפוצות",
     contact: "צור קשר",
     downloadCV: "הורד קורות חיים",
     whatsapp: "ווטסאפ"
@@ -27,6 +28,24 @@ export const he = {
       fast: "מהיר וקליל",
       design: "עיצוב נקי ומותאם",
       manageable: "נוח לתחזוקה ולניהול",
+    },
+
+    heroCards: {
+      business: {
+        title: "אתר תדמית לעסק",
+        caption: "עמודים מסודרים, סיפור מותג ויצירת קשר — באתר מקצועי אחד.",
+        url: "yourbrand.com",
+      },
+      links: {
+        title: "אתר קישורים חכם",
+        caption: "מקום אחד לכל קריאות הפעולה, הרשתות והתוכן החשוב.",
+      },
+      landing: {
+        title: "דף נחיתה",
+        caption: "דף ממוקד מטרה אחת ברורה — שמביא פניות והמרות.",
+      },
+      ctaButton: "צפו בפרויקטים",
+      compactLink: "דוגמאות בפרויקטים ←",
     },
 
     // Backward-compat keys (older components)
@@ -50,6 +69,7 @@ export const he = {
     actions: {
       whatsapp: "ווטסאפ",
       email: "אימייל",
+      instagram: "אינסטגרם",
       linkedin: "LinkedIn",
     },
     name: "שם מלא",
@@ -88,7 +108,7 @@ export const he = {
     skills: "כישורים",
     journey: "המסע שלי",
     insights: "תובנות פיתוח",
-    copyright: "© {year} DEVTAS · נבנה עם React, TypeScript ו‑Vite."
+    copyright: "© {year} DEVTAS. כל הזכויות שמורות."
   },
   
   // Journey
@@ -145,6 +165,10 @@ export const he = {
       devtas: {
         title: "האתר שלי – DevTAS",
         desc: "אתר פורטפוליו אישי המציג את השירותים, הפרויקטים והסגנון המקצועי שלי כמפתחת אתרים."
+      },
+      academy: {
+        title: "האקדמיה של אבא",
+        desc: "מערכת קורסים דיגיטלית ומערכת משתמשים מלאה, הכוללת אזור תלמידים, אזור ניהול, מעקב התקדמות, ניהול תוכן, אינטגרציית תשלומים, ואוטומציות ליצירת חשבונות ושליחת מיילים."
       }
     },
 

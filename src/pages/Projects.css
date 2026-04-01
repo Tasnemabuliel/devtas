@@ -143,8 +143,12 @@
   margin: 0.7rem 0 0.5rem 0;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
   gap: 0.5rem;
+  row-gap: 0.5rem;
   justify-content: flex-start;
+  min-width: 0;
 }
 .tech-tag {
   background: rgba(232, 77, 138, 0.08);
@@ -156,6 +160,9 @@
   padding: 0.25em 0.7em;
   box-shadow: var(--shadow-xs);
   transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  flex: 0 1 auto;
+  max-width: 100%;
+  word-break: break-word;
 }
 
 .project-card:hover .tech-tag {

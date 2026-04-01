@@ -8,6 +8,7 @@ export const en = {
     skills: "Skills",
     projects: "Projects",
     services: "Services",
+    faq: "FAQ",
     contact: "Contact",
     downloadCV: "Download CV",
     whatsapp: "WhatsApp"
@@ -26,6 +27,24 @@ export const en = {
       fast: "Fast & lightweight",
       design: "Clean custom design",
       manageable: "Easy to manage",
+    },
+
+    heroCards: {
+      business: {
+        title: "Business Website",
+        caption: "Structured pages, brand story, and contact — in one professional site.",
+        url: "yourbrand.com",
+      },
+      links: {
+        title: "Smart Links Page",
+        caption: "One hub for CTAs, social profiles, and key content.",
+      },
+      landing: {
+        title: "Landing Page",
+        caption: "A focused page built around one clear conversion goal.",
+      },
+      ctaButton: "View projects",
+      compactLink: "See examples →",
     },
 
     // Backward-compat
@@ -49,6 +68,7 @@ export const en = {
     actions: {
       whatsapp: "WhatsApp",
       email: "Email",
+      instagram: "Instagram",
       linkedin: "LinkedIn",
     },
     name: "Full name",
@@ -79,6 +99,7 @@ export const en = {
     connect: "Connect",
     resources: "Resources",
     email: "Email",
+    instagram: "Instagram",
     whatsapp: "WhatsApp",
     phoneLabel: "Phone:",
     github: "GitHub",
@@ -87,7 +108,7 @@ export const en = {
     skills: "Skills",
     journey: "My Journey",
     insights: "Dev Insights",
-    copyright: "© {year} DEVTAS · Built with React, TypeScript, and Vite."
+    copyright: "© {year} DEVTAS. All rights reserved."
   },
   
   // Journey
@@ -144,6 +165,10 @@ export const en = {
       devtas: {
         title: "My Website – DevTAS",
         desc: "A personal portfolio that showcases my services, projects, and professional style as a web developer."
+      },
+      academy: {
+        title: "Dad's Academy",
+        desc: "A full digital course platform and user management system: student area, admin area, progress tracking, content management, payment integration, and automations for account creation and email delivery."
       }
     },
 

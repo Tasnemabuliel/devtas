@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react'
 import './Projects.css'
 import ProjectCard from '../components/ProjectCard'
 import { useI18n } from '../i18n/I18nProvider'
+import { ACADEMY_SITE_HREF, FITNESS_COACH_SITE_HREF } from '../constants/siteLinks'
 
 export default function Projects() {
   const { t } = useI18n()
@@ -18,7 +19,26 @@ export default function Projects() {
       title: t('projects.items.coach.title'),
       desc: t('projects.items.coach.desc'),
       tech: ['Next.js', 'Firebase', 'Vercel'],
-      href: 'https://orelkoriat.vercel.app/',
+      href: FITNESS_COACH_SITE_HREF,
+      ctaLabel: t('projects.cta.viewSite'),
+    },
+    {
+      title: t('projects.items.academy.title'),
+      desc: t('projects.items.academy.desc'),
+      tech: [
+        'Next.js',
+        'React',
+        'TypeScript',
+        'Node.js',
+        'PostgreSQL',
+        'Prisma',
+        'Supabase',
+        'REST API',
+        'Resend',
+        'Postman',
+        'Vercel',
+      ],
+      href: ACADEMY_SITE_HREF,
       ctaLabel: t('projects.cta.viewSite'),
     },
     {
@@ -30,7 +50,7 @@ export default function Projects() {
     },
   ]
 
-  const revealDelays = ['0ms', '120ms', '240ms'] as const
+  const revealDelays = ['0ms', '120ms', '240ms', '360ms'] as const
   
   return (
     <section id="projects" className="projects-section" data-reveal="up">

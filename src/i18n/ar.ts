@@ -7,6 +7,8 @@ export const ar = {
     journey: "رحلتي",
     skills: "المهارات",
     projects: "مشاريعي",
+    services: "ما أبنيه",
+    faq: "الأسئلة الشائعة",
     contact: "اتصل بي",
     downloadCV: "تحميل السيرة الذاتية",
     whatsapp: "واتساب"
@@ -16,7 +18,27 @@ export const ar = {
   home: {
     title: "مطور Full-Stack",
     subtitle: "أبني تجارب ويب مذهلة بتقنيات حديثة",
-    cta: "دعنا نعمل معاً"
+    cta: "دعنا نعمل معاً",
+    techLine: "React • Next.js • Firebase",
+    ctaProjects: "عرض المشاريع",
+    ctaContact: "تواصل معي",
+    heroCards: {
+      business: {
+        title: "موقع أعمال",
+        caption: "صفحات منظمة وهوية وتواصل في موقع مهني واحد.",
+        url: "yourbrand.com",
+      },
+      links: {
+        title: "صفحة روابط ذكية",
+        caption: "مركز واحد لروابطك وعناوين التحويل والمحتوى المهم.",
+      },
+      landing: {
+        title: "صفحة هبوط",
+        caption: "صفحة مركزة حول هدف تحويل واحد واضح.",
+      },
+      ctaButton: "عرض المشاريع",
+      compactLink: "أمثلة ←",
+    },
   },
   
   // About Section
@@ -37,7 +59,13 @@ export const ar = {
     message: "رسالتك",
     send: "إرسال الرسالة",
     success: "تم إرسال الرسالة بنجاح!",
-    error: "فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى."
+    error: "فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى.",
+    actions: {
+      whatsapp: "واتساب",
+      email: "البريد الإلكتروني",
+      instagram: "إنستغرام",
+      linkedin: "لينكد إن",
+    },
   },
   
   // CTA Section
@@ -53,10 +81,12 @@ export const ar = {
     built: "مبني بـ React & Vite",
     title: "DEVTAS",
     subtitle: "مهندس برمجيات ومطور ويب",
+    role: "تطوير مواقع للأعمال والعلامات التجارية",
     navigation: "التنقل",
     connect: "تواصل",
     resources: "الموارد",
     email: "البريد الإلكتروني",
+    instagram: "إنستغرام",
     whatsapp: "واتساب",
     phoneLabel: "الهاتف:",
     github: "GitHub",
@@ -65,7 +95,7 @@ export const ar = {
     skills: "المهارات",
     journey: "رحلتي",
     insights: "رؤى التطوير",
-    copyright: "© {year} DEVTAS · مبني بـ ❤️ باستخدام React, TypeScript, Vite. منشور عبر Vercel."
+    copyright: "© {year} DEVTAS. جميع الحقوق محفوظة."
   },
   
   // Journey
@@ -106,6 +136,28 @@ export const ar = {
   projects: {
     title: "مشاريعي",
     subtitle: "عمل مختار",
+    cta: {
+      viewSite: "عرض الموقع",
+      liveDemo: "عرض مباشر",
+    },
+    items: {
+      links: {
+        title: "موقع روابط ذكي",
+        desc: "صفحة روابط نظيفة تجمع التواصل والمحتوى والروابط المهمة في مكان واحد."
+      },
+      coach: {
+        title: "موقع مدرب لياقة",
+        desc: "موقع هوية احترافي بتصميم مخصص، تدفق تواصل، تجربة مستخدم قوية، وحضور رقمي واضح."
+      },
+      devtas: {
+        title: "موقعي – DevTAS",
+        desc: "معرض أعمال شخصي يعرض خدماتي ومشاريعي وأسلوبي كمطوّرة ويب."
+      },
+      academy: {
+        title: "أكاديمية الأب",
+        desc: "منصة دورات رقمية كاملة مع إدارة مستخدمين: منطقة طلاب، لوحة إدارة، تتبع تقدم، إدارة محتوى، دفع، وأتمتة لإنشاء الحسابات والبريد."
+      }
+    },
     projects: {
       autohub: {
         title: "AUTOHUB – مشروع التخرج",

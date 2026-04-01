@@ -35,7 +35,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     // Get language from localStorage or default to Hebrew (marketing site default)
     const savedLang = localStorage.getItem('language') as Language
-    return savedLang && ['en', 'he'].includes(savedLang) ? savedLang : 'he'
+    return savedLang && ['en', 'he', 'ar'].includes(savedLang) ? savedLang : 'he'
   })
 
   const setLanguage = (lang: Language) => {
@@ -69,7 +69,8 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
       skip.className = 'skip-link'
       document.body.prepend(skip)
     }
-    skip.textContent = language === 'he' ? 'דלג לתוכן' : 'Skip to content'
+    skip.textContent =
+      language === 'he' ? 'דלג לתוכן' : language === 'ar' ? 'تخطي إلى المحتوى' : 'Skip to content'
   }, [language, isRTL])
 
   const value: I18nContextType = {

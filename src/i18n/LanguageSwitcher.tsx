@@ -3,9 +3,9 @@ import { useI18n } from './I18nProvider'
 import type { Language } from './I18nProvider'
 
 const languages = [
-  // Hebrew default, English secondary
   { code: 'he' as Language, name: 'עברית', short: 'עברית' },
   { code: 'en' as Language, name: 'English', short: 'EN' },
+  { code: 'ar' as Language, name: 'العربية', short: 'عربي' },
 ]
 
 export const LanguageSwitcher: React.FC = () => {
@@ -15,13 +15,20 @@ export const LanguageSwitcher: React.FC = () => {
     setLanguage(e.target.value as Language)
   }
 
+  const selectAria =
+    language === 'he'
+      ? 'בחירת שפת האתר'
+      : language === 'ar'
+        ? 'اختر لغة الموقع'
+        : 'Select site language'
+
   return (
     <div className="language-switcher">
       <select 
         value={language} 
         onChange={handleLanguageChange}
         className="language-select"
-        aria-label="Select language"
+        aria-label={selectAria}
       >
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>
