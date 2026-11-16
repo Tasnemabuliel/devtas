@@ -27,7 +27,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(232, 77, 138, 0.06), transparent 45%);
+  background: linear-gradient(180deg, rgba(124, 92, 191, 0.08), transparent 45%);
   opacity: 0;
   transition: opacity 220ms ease;
   pointer-events: none;
@@ -49,17 +49,17 @@
   border-radius: 14px;
   display: grid;
   place-items: center;
-  color: var(--accent);
-  background: linear-gradient(180deg, rgba(232, 77, 138, 0.12), rgba(232, 77, 138, 0.06));
-  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--navy);
+  background: linear-gradient(180deg, rgba(30, 58, 95, 0.1), rgba(124, 92, 191, 0.08));
+  border: 1px solid color-mix(in srgb, var(--navy) 18%, transparent);
   margin-bottom: 0.8rem;
   transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
 }
 
 .service-card:hover .service-icon {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 12px 24px rgba(232, 77, 138, 0.14);
-  background: linear-gradient(180deg, rgba(232, 77, 138, 0.18), rgba(232, 77, 138, 0.08));
+  box-shadow: 0 12px 24px rgba(30, 58, 95, 0.12);
+  background: linear-gradient(180deg, rgba(30, 58, 95, 0.14), rgba(124, 92, 191, 0.12));
 }
 
 .service-title {

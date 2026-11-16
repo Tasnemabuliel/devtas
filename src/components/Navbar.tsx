@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import mylogo from '../assets/logonew.png'
+import { WHATSAPP_HREF } from '../constants/siteLinks'
 import { useI18n } from '../i18n/I18nProvider'
 import { LanguageSwitcher } from '../i18n/LanguageSwitcher'
 
 export default function Navbar() {
-  const [active, setActive] = useState<string>('home')
-  const [scrolled, setScrolled] = useState<boolean>(false)
-  const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const [active, setActive] = useState('home')
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const { t } = useI18n()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const onHome = location.pathname === '/'
 
-  const scrollToHome = () => {
-    const homeSection = document.getElementById('home')
-    if (homeSection) {
-      homeSection.scrollIntoView({ behavior: 'smooth' })
-    }
+  const goHomeSection = (sectionId: string) => {
     setMenuOpen(false)
-  }
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault()
-    const section = document.getElementById(sectionId)
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' })
+    if (onHome) {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+      return
     }
-    setMenuOpen(false)
+    navigate(`/#${sectionId}`)
   }
 
   useEffect(() => {
+    if (!onHome) {
+      setActive(location.pathname.startsWith('/projects') ? 'projects' : '')
+      return
+    }
+
     const sections = Array.from(document.querySelectorAll('main section[id]')) as HTMLElement[]
 
     const updateActiveSection = () => {
@@ -34,25 +36,18 @@ export default function Navbar() {
       let activeId = 'home'
       let minDistance = Infinity
 
-      // Check each section
-      sections.forEach(section => {
+      sections.forEach((section) => {
         const rect = section.getBoundingClientRect()
         const sectionTop = rect.top + scrollY
         const sectionBottom = sectionTop + rect.height
         const viewportTop = scrollY
         const viewportBottom = scrollY + window.innerHeight
 
-        // Check if section is visible in viewport
         if (sectionTop < viewportBottom && sectionBottom > viewportTop) {
-          // Calculate how much of the section is visible
           const visibleTop = Math.max(sectionTop, viewportTop)
           const visibleBottom = Math.min(sectionBottom, viewportBottom)
-          const visibleHeight = visibleBottom - visibleTop
-          const sectionHeight = sectionBottom - sectionTop
-          const visibilityRatio = visibleHeight / sectionHeight
-
-          // If more than 30% of the section is visible, consider it active
-          if (visibilityRatio > 0.3) {
+          const visibilityRatio = (visibleBottom - visibleTop) / (sectionBottom - sectionTop)
+          if (visibilityRatio > 0.28) {
             const distance = Math.abs(sectionTop - viewportTop)
             if (distance < minDistance) {
               minDistance = distance
@@ -62,88 +57,59 @@ export default function Navbar() {
         }
       })
 
-      // If no section is 30% visible, find the closest one
-      if (activeId === 'home' && sections.length > 0) {
-        sections.forEach(section => {
-          const rect = section.getBoundingClientRect()
-          const sectionTop = rect.top + scrollY
-          const distance = Math.abs(sectionTop - scrollY)
-          if (distance < minDistance) {
-            minDistance = distance
-            activeId = section.id
-          }
-        })
-      }
-
       setActive(activeId)
     }
 
     const onScroll = () => {
-      const scrollY = window.scrollY
-      setScrolled(scrollY > 8)
+      setScrolled(window.scrollY > 8)
       updateActiveSection()
     }
 
-    // Initial call
     onScroll()
-    
-    // Add scroll listener
     window.addEventListener('scroll', onScroll, { passive: true })
-
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [])
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [onHome, location.pathname])
 
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth > 900) {
-        setMenuOpen(false)
-      }
+      if (window.innerWidth > 980) setMenuOpen(false)
     }
-
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setMenuOpen(false)
-      }
+      if (event.key === 'Escape') setMenuOpen(false)
     }
-
-    const onPageShow = () => {
-      setMenuOpen(false)
-      document.body.style.overflow = ''
-    }
-
     window.addEventListener('resize', onResize)
     window.addEventListener('keydown', onKeyDown)
-    window.addEventListener('pageshow', onPageShow)
-
     return () => {
       window.removeEventListener('resize', onResize)
       window.removeEventListener('keydown', onKeyDown)
-      window.removeEventListener('pageshow', onPageShow)
     }
   }, [])
 
   useEffect(() => {
-    if (window.innerWidth > 900) return
-
+    if (window.innerWidth > 980) return
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-
     return () => {
       document.body.style.overflow = ''
     }
   }, [menuOpen])
 
-
+  const navItems = [
+    { id: 'home', label: t('nav.home') },
+    { id: 'projects', label: t('nav.projects') },
+    { id: 'services', label: t('nav.services') },
+    { id: 'about', label: t('nav.about') },
+    { id: 'faq', label: t('nav.faq') },
+    { id: 'contact', label: t('nav.contact') },
+  ] as const
 
   return (
     <header className={`navbar${scrolled ? ' scrolled' : ''}`}>
       <div className="navbar-inner">
-        <button className="brand-link" type="button" onClick={scrollToHome} aria-label="Go to homepage section">
+        <button className="brand-link" type="button" onClick={() => goHomeSection('home')} aria-label="DEVTAS">
           <div className="logo-area">
-            <img src={mylogo} alt="DEVTAS logo" className="logo-img" height={56} style={{verticalAlign:'middle', borderRadius:'50%'}} />
+            <img src={mylogo} alt="" className="logo-img" height={52} width={52} />
             <div className="brand-copy">
-              <h1 className="logo">DEVTAS</h1>
+              <span className="logo">DEVTAS</span>
               <p className="brand-subtitle">{t('footer.role')}</p>
             </div>
           </div>
@@ -154,7 +120,7 @@ export default function Navbar() {
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-controls="primary-nav"
           aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(o => !o)}
+          onClick={() => setMenuOpen((o) => !o)}
         >
           <span />
           <span />
@@ -163,17 +129,45 @@ export default function Navbar() {
 
         <nav id="primary-nav" className={menuOpen ? 'open' : ''}>
           <div className="nav-links">
-            <a href="#home" className={`nav-link${active==='home' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'home')}>{t('nav.home')}</a>
-            <a href="#projects" className={`nav-link${active==='projects' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'projects')}>{t('nav.projects')}</a>
-            <a href="#services" className={`nav-link${active==='services' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'services')}>{t('nav.services')}</a>
-            <a href="#faq" className={`nav-link${active==='faq' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'faq')}>{t('nav.faq')}</a>
-            <a href="#contact" className={`nav-link${active==='contact' ? ' nav-active' : ''}`} onClick={(e) => handleNavClick(e, 'contact')}>{t('nav.contact')}</a>
+            {navItems.map((item) => {
+              if (item.id === 'projects') {
+                return (
+                  <Link
+                    key={item.id}
+                    to="/projects"
+                    className={`nav-link${active === 'projects' ? ' nav-active' : ''}`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              }
+
+              return (
+                <a
+                  key={item.id}
+                  href={`/#${item.id}`}
+                  className={`nav-link${active === item.id ? ' nav-active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    goHomeSection(item.id)
+                  }}
+                >
+                  {item.label}
+                </a>
+              )
+            })}
           </div>
 
           <div className="nav-actions">
             <LanguageSwitcher />
-            <a href="https://wa.me/972542621691" target="_blank" rel="noopener noreferrer" className="btn small whatsapp-btn" onClick={() => setMenuOpen(false)}>
-              <span>💬</span>
+            <a
+              href={WHATSAPP_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn small whatsapp-btn"
+              onClick={() => setMenuOpen(false)}
+            >
               <span>{t('nav.whatsapp')}</span>
             </a>
           </div>

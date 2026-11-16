@@ -53,8 +53,9 @@ export default function Services() {
   ]
 
   return (
-    <section id="services" className="services-section" data-reveal="up">
+    <section id="services" className="section services-section" data-reveal="up">
       <header className="section-header" data-reveal="up" style={{ '--reveal-delay': '80ms' } as CSSProperties}>
+        <p className="section-eyebrow">{t('nav.services')}</p>
         <h2 className="section-title">{t('services.title')}</h2>
         <p className="section-subtitle">{t('services.subtitle')}</p>
       </header>

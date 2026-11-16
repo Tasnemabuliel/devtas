@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, type ReactNode }
 import { en } from './en'
 import { he } from './he'
 import { ar } from './ar'
+import { portfolioAr, portfolioEn, portfolioHe } from './portfolioContent'
 
 export type Language = 'en' | 'he' | 'ar'
 
@@ -14,17 +15,40 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined)
 
-const translations = {
-  en,
-  he,
-  ar
+function deepMerge<T extends Record<string, unknown>>(base: T, overlay: Record<string, unknown>): T {
+  const out: Record<string, unknown> = { ...base }
+  for (const [key, value] of Object.entries(overlay)) {
+    const current = out[key]
+    if (
+      value &&
+      typeof value === 'object' &&
+      !Array.isArray(value) &&
+      current &&
+      typeof current === 'object' &&
+      !Array.isArray(current)
+    ) {
+      out[key] = deepMerge(current as Record<string, unknown>, value as Record<string, unknown>)
+    } else {
+      out[key] = value
+    }
+  }
+  return out as T
 }
 
-// Helper function to get nested object value by key path
-const getNestedValue = (obj: any, path: string): string => {
-  return path.split('.').reduce((current, key) => {
-    return current && current[key] !== undefined ? current[key] : path
+const translations = {
+  en: deepMerge(en as unknown as Record<string, unknown>, portfolioEn as unknown as Record<string, unknown>),
+  he: deepMerge(he as unknown as Record<string, unknown>, portfolioHe as unknown as Record<string, unknown>),
+  ar: deepMerge(ar as unknown as Record<string, unknown>, portfolioAr as unknown as Record<string, unknown>),
+}
+
+const getNestedValue = (obj: unknown, path: string): string => {
+  const value = path.split('.').reduce<unknown>((current, key) => {
+    if (current && typeof current === 'object' && key in (current as Record<string, unknown>)) {
+      return (current as Record<string, unknown>)[key]
+    }
+    return undefined
   }, obj)
+  return typeof value === 'string' ? value : path
 }
 
 interface I18nProviderProps {
@@ -33,7 +57,6 @@ interface I18nProviderProps {
 
 export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    // Get language from localStorage or default to Hebrew (marketing site default)
     const savedLang = localStorage.getItem('language') as Language
     return savedLang && ['en', 'he', 'ar'].includes(savedLang) ? savedLang : 'he'
   })
@@ -41,26 +64,19 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
     localStorage.setItem('language', lang)
-    
-    // Update HTML dir attribute for RTL support
     const isRTL = lang === 'he' || lang === 'ar'
     document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
     document.documentElement.setAttribute('lang', lang)
   }
 
-  const t = (key: string): string => {
-    const translation = getNestedValue(translations[language], key)
-    return translation || key
-  }
+  const t = (key: string): string => getNestedValue(translations[language], key)
 
   const isRTL = language === 'he' || language === 'ar'
 
-  // Set initial HTML attributes
   useEffect(() => {
     document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
     document.documentElement.setAttribute('lang', language)
 
-    // Keep the skip-link text aligned with the current language
     const skipSelector = 'a.skip-link'
     let skip = document.querySelector<HTMLAnchorElement>(skipSelector)
     if (!skip) {
@@ -73,15 +89,8 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({ children }) => {
       language === 'he' ? 'דלג לתוכן' : language === 'ar' ? 'تخطي إلى المحتوى' : 'Skip to content'
   }, [language, isRTL])
 
-  const value: I18nContextType = {
-    language,
-    setLanguage,
-    t,
-    isRTL
-  }
-
   return (
-    <I18nContext.Provider value={value}>
+    <I18nContext.Provider value={{ language, setLanguage, t, isRTL }}>
       {children}
     </I18nContext.Provider>
   )
