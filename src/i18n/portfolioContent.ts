@@ -23,6 +23,8 @@ export const portfolioHe = {
   portfolio: {
     title: 'פרויקטים נבחרים',
     subtitle: 'מערכות ופתרונות שנבנו כחלק מהניסיון המקצועי — מוצגים לפי תחום, עם דמו פעיל.',
+    websitesTitle: 'אתרים ללקוחות',
+    websitesSubtitle: 'הפרויקטים הקודמים — אתרי תדמית, קישורים חכמים ומערכות קורסים.',
     allTitle: 'הפורטפוליו המלא',
     allSubtitle: 'סננו לפי קטגוריה וגלו מערכות ואתרים מהניסיון המקצועי.',
     filterAll: 'הכל',
@@ -123,6 +125,7 @@ export const portfolioHe = {
         purpose: 'מרכז קישורים לעסק או למותג אישי.',
         problem: 'קישורים מפוזרים מקשים על המרה.',
         solution: 'דף קישורים נקי וממוקד עם גישה מהירה לכל הערוצים.',
+        functions: 'קישורים · קריאות לפעולה · רשתות חברתיות · עיצוב מותאם',
       },
       coach: {
         name: 'אתר תדמית למאמן כושר',
@@ -130,6 +133,7 @@ export const portfolioHe = {
         purpose: 'נוכחות דיגיטלית חזקה למאמן.',
         problem: 'צורך באתר מקצועי שממיר פניות.',
         solution: 'אתר תדמית מותאם עם מסר ברור ויצירת קשר.',
+        functions: 'עמודי תדמית · יצירת קשר · עיצוב מותאם · נוכחות דיגיטלית',
       },
       academy: {
         name: 'האקדמיה של אבא',
@@ -137,6 +141,7 @@ export const portfolioHe = {
         purpose: 'העברת קורסים ומעקב התקדמות אונליין.',
         problem: 'ניהול תלמידים, תוכן ותשלומים דורש מערכת ייעודית.',
         solution: 'מערכת קורסים עם אזור תלמידים, ניהול, ומעקב התקדמות.',
+        functions: 'אזור תלמידים · ניהול · מעקב התקדמות · תוכן · תשלומים · אוטומציות',
       },
       devtas: {
         name: 'האתר של DEVTAS',
@@ -144,6 +149,7 @@ export const portfolioHe = {
         purpose: 'הצגת השירותים והפרויקטים במקום אחד.',
         problem: 'צורך בנוכחות מקצועית רב־לשונית.',
         solution: 'אתר React עם i18n ו־RTL מלא.',
+        functions: 'פורטפוליו · שירותים · i18n · RTL · יצירת קשר',
       },
     },
   },
@@ -246,6 +252,8 @@ export const portfolioEn: typeof portfolioHe = {
   portfolio: {
     title: 'Featured projects',
     subtitle: 'Systems built as part of professional experience — shown by domain, with live demos.',
+    websitesTitle: 'Client websites',
+    websitesSubtitle: 'Previous projects — brand sites, smart links, and course platforms.',
     allTitle: 'Full portfolio',
     allSubtitle: 'Filter by category and explore systems and websites from professional experience.',
     filterAll: 'All',
@@ -345,6 +353,7 @@ export const portfolioEn: typeof portfolioHe = {
         purpose: 'One place for key business links.',
         problem: 'Scattered links reduce conversion.',
         solution: 'A clean links page with fast access to every channel.',
+        functions: 'Links · CTAs · Social profiles · Custom design',
       },
       coach: {
         name: 'Fitness coach brand site',
@@ -352,6 +361,7 @@ export const portfolioEn: typeof portfolioHe = {
         purpose: 'Strong digital presence for a coach.',
         problem: 'Need a site that converts inquiries.',
         solution: 'Custom brand site with clear messaging and contact.',
+        functions: 'Brand pages · Contact · Custom design · Digital presence',
       },
       academy: {
         name: "Dad's Academy",
@@ -359,6 +369,7 @@ export const portfolioEn: typeof portfolioHe = {
         purpose: 'Deliver courses and track progress online.',
         problem: 'Students, content, and payments need a dedicated system.',
         solution: 'Course system with student area, admin, and progress tracking.',
+        functions: 'Student area · Admin · Progress tracking · Content · Payments · Automations',
       },
       devtas: {
         name: 'DEVTAS website',
@@ -366,6 +377,7 @@ export const portfolioEn: typeof portfolioHe = {
         purpose: 'Present services and projects in one place.',
         problem: 'Need a multilingual professional presence.',
         solution: 'React site with full i18n and RTL support.',
+        functions: 'Portfolio · Services · i18n · RTL · Contact',
       },
     },
   },
@@ -468,6 +480,8 @@ export const portfolioAr = {
   portfolio: {
     title: 'مشاريع مختارة',
     subtitle: 'أنظمة بُنيت ضمن الخبرة المهنية — تُعرض حسب المجال مع عروض تجريبية.',
+    websitesTitle: 'مواقع للعملاء',
+    websitesSubtitle: 'المشاريع السابقة — مواقع تعريفية وروابط ذكية ومنصات دورات.',
     allTitle: 'المحفظة الكاملة',
     allSubtitle: 'صفِّ حسب الفئة واستكشف أنظمة ومواقع من الخبرة المهنية.',
     filterAll: 'الكل',
@@ -564,6 +578,7 @@ export const portfolioAr = {
         purpose: 'مكان واحد للروابط المهمة.',
         problem: 'الروابط المبعثرة تقلل التحويل.',
         solution: 'صفحة روابط نظيفة ووصول سريع لكل القنوات.',
+        functions: 'روابط · دعوات للعمل · شبكات اجتماعية · تصميم مخصص',
       },
       coach: {
         name: 'موقع مدرب لياقة',
@@ -571,6 +586,7 @@ export const portfolioAr = {
         purpose: 'حضور رقمي قوي للمدرب.',
         problem: 'الحاجة لموقع يحوّل الاستفسارات.',
         solution: 'موقع مخصص برسالة واضحة وتواصل.',
+        functions: 'صفحات تعريفية · تواصل · تصميم مخصص · حضور رقمي',
       },
       academy: {
         name: 'أكاديمية أبي',

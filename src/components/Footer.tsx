@@ -14,12 +14,21 @@ import { IconInstagram, IconLinkedIn, IconMail, IconPhone, IconWhatsApp } from '
 export default function Footer() {
   const { t } = useI18n()
 
+  const navLinks = [
+    { href: '/#home', label: t('nav.home') },
+    { href: '/projects', label: t('nav.projects'), router: true },
+    { href: '/#services', label: t('nav.services') },
+    { href: '/#about', label: t('nav.about') },
+    { href: '/#faq', label: t('nav.faq') },
+    { href: '/#contact', label: t('nav.contact') },
+  ] as const
+
   return (
     <footer className="footer">
       <div className="footer-main">
         <div className="footer-brand">
           <div className="footer-brand-lockup">
-            <img src={miniLogo} alt="" className="footer-logo" width={44} height={44} decoding="async" />
+            <img src={miniLogo} alt="" className="footer-logo" width={40} height={40} decoding="async" />
             <div className="footer-brand-text">
               <p className="footer-brand-name">{t('footer.title')}</p>
               <p className="footer-tagline">{t('footer.role')}</p>
@@ -28,72 +37,50 @@ export default function Footer() {
         </div>
 
         <nav className="footer-nav" aria-label={t('footer.navigation')}>
-          <p className="footer-col-title">{t('footer.navigation')}</p>
-          <ul className="footer-link-list">
-            <li>
-              <a href="/#home">{t('nav.home')}</a>
-            </li>
-            <li>
-              <Link to="/projects">{t('nav.projects')}</Link>
-            </li>
-            <li>
-              <a href="/#services">{t('nav.services')}</a>
-            </li>
-            <li>
-              <a href="/#tech">{t('nav.tech')}</a>
-            </li>
-            <li>
-              <a href="/#process">{t('nav.process')}</a>
-            </li>
-            <li>
-              <a href="/#about">{t('nav.about')}</a>
-            </li>
-            <li>
-              <a href="/#faq">{t('nav.faq')}</a>
-            </li>
-            <li>
-              <a href="/#contact">{t('nav.contact')}</a>
-            </li>
+          <ul className="footer-link-list footer-link-list--inline">
+            {navLinks.map((item) => (
+              <li key={item.href}>
+                {'router' in item && item.router ? (
+                  <Link to={item.href}>{item.label}</Link>
+                ) : (
+                  <a href={item.href}>{item.label}</a>
+                )}
+              </li>
+            ))}
           </ul>
         </nav>
 
         <div className="footer-contact">
-          <p className="footer-col-title">{t('footer.connect')}</p>
-          <ul className="footer-link-list footer-link-list--contact">
+          <ul className="footer-social" aria-label={t('footer.connect')}>
             <li>
-              <a href={WHATSAPP_HREF} target="_blank" rel="noreferrer">
+              <a href={WHATSAPP_HREF} target="_blank" rel="noreferrer" aria-label={t('footer.whatsapp')}>
                 <IconWhatsApp className="footer-link-icon" aria-hidden />
-                <span>{t('footer.whatsapp')}</span>
               </a>
             </li>
             <li>
-              <a href={PHONE_HREF} className="footer-phone">
+              <a href={PHONE_HREF} aria-label={`${t('footer.phoneLabel')} ${PHONE_DISPLAY}`}>
                 <IconPhone className="footer-link-icon" aria-hidden />
-                <span className="footer-phone-label">{t('footer.phoneLabel')}</span>
-                <span className="footer-phone-number" dir="ltr">
-                  {PHONE_DISPLAY}
-                </span>
               </a>
             </li>
             <li>
-              <a href={MAILTO_INQUIRY_HREF} target="_blank" rel="noreferrer">
+              <a href={MAILTO_INQUIRY_HREF} target="_blank" rel="noreferrer" aria-label={t('footer.email')}>
                 <IconMail className="footer-link-icon" aria-hidden />
-                <span>{t('footer.email')}</span>
               </a>
             </li>
             <li>
-              <a href={INSTAGRAM_HREF} target="_blank" rel="noreferrer">
+              <a href={INSTAGRAM_HREF} target="_blank" rel="noreferrer" aria-label={t('contact.actions.instagram')}>
                 <IconInstagram className="footer-link-icon" aria-hidden />
-                <span>{t('contact.actions.instagram')}</span>
               </a>
             </li>
             <li>
-              <a href={LINKEDIN_HREF} target="_blank" rel="noreferrer">
+              <a href={LINKEDIN_HREF} target="_blank" rel="noreferrer" aria-label={t('footer.linkedin')}>
                 <IconLinkedIn className="footer-link-icon" aria-hidden />
-                <span>{t('footer.linkedin')}</span>
               </a>
             </li>
           </ul>
+          <a className="footer-phone-compact" href={PHONE_HREF} dir="ltr">
+            {PHONE_DISPLAY}
+          </a>
         </div>
       </div>
 

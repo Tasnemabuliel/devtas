@@ -135,7 +135,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'smart-links',
     slug: 'smart-links',
     category: 'websites',
-    featured: false,
+    featured: true,
     image: '',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://orelkoriatcoach.vercel.app/links' }],
     technologies: ['Next.js', 'React', 'Vercel'],
@@ -146,7 +146,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'fitness-coach',
     slug: 'fitness-coach',
     category: 'websites',
-    featured: false,
+    featured: true,
     image: '',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://www.orelkorait.com' }],
     technologies: ['Next.js', 'Firebase', 'Vercel'],
@@ -157,7 +157,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'academy',
     slug: 'academy',
     category: 'websites',
-    featured: false,
+    featured: true,
     image: '',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://devtasweb.vercel.app' }],
     technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Supabase', 'Vercel'],
@@ -168,7 +168,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'devtas-site',
     slug: 'devtas-site',
     category: 'websites',
-    featured: false,
+    featured: true,
     image: '',
     demos: [{ labelKey: 'portfolio.demoLabels.liveDemo', url: '/#home' }],
     technologies: ['React', 'TypeScript', 'Vite', 'i18n', 'RTL'],
@@ -192,4 +192,12 @@ export function getProjectBySlug(slug: string) {
 
 export function getFeaturedProjects() {
   return portfolioProjects.filter((p) => p.featured)
+}
+
+export function getFeaturedSystems() {
+  return getFeaturedProjects().filter((p) => p.category !== 'websites')
+}
+
+export function getFeaturedWebsites() {
+  return getFeaturedProjects().filter((p) => p.category === 'websites')
 }
