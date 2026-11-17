@@ -129,7 +129,8 @@
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
-  object-position: top center;
+  object-position: center top;
+  filter: none;
 }
 
 .hero-visual-stack {

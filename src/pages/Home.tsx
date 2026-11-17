@@ -27,10 +27,10 @@ export default function Home() {
 
         <div className="hero-visual fade-in-up delay-2" data-reveal="right" aria-hidden="true">
           <div className="hero-visual-frame">
-            <img src="/projects/sukria.png" alt="" className="hero-visual-main" />
+            <img src="/projects/wego.png" alt="" className="hero-visual-main" />
             <div className="hero-visual-stack">
               <img src="/projects/voltara.png" alt="" />
-              <img src="/projects/wego.png" alt="" />
+              <img src="/projects/denova.png" alt="" />
             </div>
           </div>
           <Link to="/projects" className="hero-visual-link">
