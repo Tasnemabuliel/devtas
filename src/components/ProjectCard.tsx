@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { ExternalLink } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n/I18nProvider'
 import type { PortfolioProject } from '../data/projects'
@@ -6,6 +7,21 @@ import type { PortfolioProject } from '../data/projects'
 type Props = {
   project: PortfolioProject
   revealDelay?: string
+}
+
+function previewHref(project: PortfolioProject) {
+  const primary = project.demos[0]?.url
+  if (primary && primary.startsWith('http')) return primary
+  return `/projects/${project.slug}`
+}
+
+function previewHost(href: string) {
+  try {
+    if (href.startsWith('http')) return new URL(href).hostname.replace(/^www\./, '')
+  } catch {
+    /* ignore */
+  }
+  return 'devtas'
 }
 
 export default function ProjectCard({ project, revealDelay = '0ms' }: Props) {
@@ -18,6 +34,48 @@ export default function ProjectCard({ project, revealDelay = '0ms' }: Props) {
   const categoryLabel = t(`portfolio.categories.${project.category}`)
   const originLabel =
     project.origin === 'employment' ? t('portfolio.originEmployment') : t('portfolio.originIndependent')
+  const href = previewHref(project)
+  const isExternal = href.startsWith('http')
+  const hasImage = Boolean(project.image)
+  const host = previewHost(href)
+
+  const mediaContent = (
+    <>
+      <div className="browser-mockup">
+        <div className="browser-mockup-chrome" aria-hidden="true">
+          <span className="browser-dot browser-dot--red" />
+          <span className="browser-dot browser-dot--yellow" />
+          <span className="browser-dot browser-dot--green" />
+          <span className="browser-mockup-url">{host}</span>
+        </div>
+        <div className="browser-mockup-viewport">
+          {hasImage ? (
+            <img
+              src={project.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="project-card-img"
+            />
+          ) : (
+            <div className="project-card-fallback" aria-hidden="true">
+              <span>{title.slice(0, 1)}</span>
+            </div>
+          )}
+          <div className="project-card-gradient" aria-hidden="true" />
+        </div>
+      </div>
+
+      <div className="project-card-badges">
+        <span className="project-card-category">{categoryLabel}</span>
+        <span className={`project-card-origin project-card-origin--${project.origin}`}>{originLabel}</span>
+      </div>
+
+      <span className="project-card-open-hint" aria-hidden="true">
+        <ExternalLink size={14} />
+      </span>
+    </>
+  )
 
   return (
     <article
@@ -25,19 +83,25 @@ export default function ProjectCard({ project, revealDelay = '0ms' }: Props) {
       data-reveal="up"
       style={{ '--reveal-delay': revealDelay } as CSSProperties}
     >
-      <Link to={`/projects/${project.slug}`} className="project-card-media" aria-label={title}>
-        {project.image ? (
-          <img src={project.image} alt="" loading="lazy" decoding="async" className="project-card-img" />
-        ) : (
-          <div className="project-card-fallback" aria-hidden="true">
-            <span>{title.slice(0, 1)}</span>
-          </div>
-        )}
-        <div className="project-card-badges">
-          <span className="project-card-category">{categoryLabel}</span>
-          <span className={`project-card-origin project-card-origin--${project.origin}`}>{originLabel}</span>
-        </div>
-      </Link>
+      {isExternal ? (
+        <a
+          className="project-card-media"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${title} — ${t('portfolio.viewDemo')}`}
+        >
+          {mediaContent}
+        </a>
+      ) : (
+        <Link
+          className="project-card-media"
+          to={href}
+          aria-label={`${title} — ${t('portfolio.viewDemo')}`}
+        >
+          {mediaContent}
+        </Link>
+      )}
 
       <div className="project-card-body">
         <h3 className="project-card-title">

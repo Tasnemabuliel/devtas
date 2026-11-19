@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { ArrowUpRight, AtSign, Mail, MessageCircle, Phone, Share2 } from 'lucide-react'
+import { Reveal } from '../components/Motion'
 import { useI18n } from '../i18n/I18nProvider'
 import {
   FORMSPREE_ENDPOINT,
@@ -52,52 +54,64 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section contact-section" data-reveal="up">
-      <header className="section-header">
-        <p className="section-eyebrow">{t('nav.contact')}</p>
-        <h2 className="section-title">{t('contact.title')}</h2>
-        <p className="section-subtitle">{t('contact.subtitle')}</p>
-      </header>
+    <section id="contact" className="band band--mesh">
+      <div className="band-inner contact-finale">
+        <Reveal x={-18}>
+          <header className="section-header section-header--wide" style={{ marginBottom: '1.25rem' }}>
+            <p className="section-eyebrow">{t('nav.contact')}</p>
+            <h2 className="section-title section-title--xl">{t('contact.title')}</h2>
+            <p className="section-subtitle">{t('contact.subtitle')}</p>
+          </header>
 
-      <div className="contact-actions">
-        <a className="btn small" href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">
-          {t('contact.actions.whatsapp')}
-        </a>
-        <a className="btn small outline" href={MAILTO_INQUIRY_HREF} target="_blank" rel="noreferrer">
-          {t('contact.actions.email')}
-        </a>
-        <a className="btn small outline" href={INSTAGRAM_HREF} target="_blank" rel="noreferrer">
-          {t('contact.actions.instagram')}
-        </a>
-        <a className="btn small outline" href={LINKEDIN_HREF} target="_blank" rel="noreferrer">
-          {t('contact.actions.linkedin')}
-        </a>
+          <div className="contact-cta-stack">
+            <a className="btn project-btn-primary" href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">
+              <MessageCircle size={16} aria-hidden style={{ marginInlineEnd: 8 }} />
+              {t('contact.actions.whatsapp')}
+              <ArrowUpRight size={16} aria-hidden style={{ marginInlineStart: 6 }} />
+            </a>
+            <a className="btn outline" href={MAILTO_INQUIRY_HREF} target="_blank" rel="noreferrer">
+              <Mail size={16} aria-hidden style={{ marginInlineEnd: 8 }} />
+              {t('contact.actions.email')}
+            </a>
+            <a className="btn outline" href={PHONE_HREF}>
+              <Phone size={16} aria-hidden style={{ marginInlineEnd: 8 }} />
+              <span dir="ltr">{PHONE_DISPLAY}</span>
+            </a>
+            <a className="btn outline" href={INSTAGRAM_HREF} target="_blank" rel="noreferrer">
+              <AtSign size={16} aria-hidden style={{ marginInlineEnd: 8 }} />
+              {t('contact.actions.instagram')}
+            </a>
+            <a className="btn outline" href={LINKEDIN_HREF} target="_blank" rel="noreferrer">
+              <Share2 size={16} aria-hidden style={{ marginInlineEnd: 8 }} />
+              {t('contact.actions.linkedin')}
+            </a>
+          </div>
+          <p className="contact-note" style={{ marginTop: '1rem' }}>
+            {t('contact.note')}
+          </p>
+        </Reveal>
+
+        <Reveal x={18} delay={0.08}>
+          <div className="contact-finale-panel">
+            {sent ? (
+              <div className="contact-success">
+                <p className="contact-success-title">{t('contact.success')}</p>
+                <p className="contact-success-sub">{t('contact.successSub')}</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="contact-form">
+                <input type="text" name="name" placeholder={t('contact.name')} required disabled={isSubmitting} />
+                <input type="email" name="email" placeholder={t('contact.email')} required disabled={isSubmitting} />
+                <textarea name="message" placeholder={t('contact.message')} required disabled={isSubmitting} rows={5} />
+                <button type="submit" disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
+                  {isSubmitting ? t('contact.sending') : t('contact.send')}
+                </button>
+              </form>
+            )}
+            {error && <p className="error">{error}</p>}
+          </div>
+        </Reveal>
       </div>
-
-      <a className="contact-phone" href={PHONE_HREF}>
-        <span>{t('contact.phoneLabel')}</span>
-        <span className="contact-phone-number" dir="ltr">
-          {PHONE_DISPLAY}
-        </span>
-      </a>
-      <p className="contact-note">{t('contact.note')}</p>
-
-      {sent ? (
-        <div className="contact-success">
-          <p className="contact-success-title">{t('contact.success')}</p>
-          <p className="contact-success-sub">{t('contact.successSub')}</p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="contact-form">
-          <input type="text" name="name" placeholder={t('contact.name')} required disabled={isSubmitting} />
-          <input type="email" name="email" placeholder={t('contact.email')} required disabled={isSubmitting} />
-          <textarea name="message" placeholder={t('contact.message')} required disabled={isSubmitting} />
-          <button type="submit" disabled={isSubmitting} style={{ opacity: isSubmitting ? 0.7 : 1 }}>
-            {isSubmitting ? t('contact.sending') : t('contact.send')}
-          </button>
-        </form>
-      )}
-      {error && <p className="error">{error}</p>}
     </section>
   )
 }

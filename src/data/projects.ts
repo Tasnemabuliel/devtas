@@ -5,8 +5,17 @@ export type ProjectCategory =
   | 'business'
   | 'lab'
   | 'websites'
+  | 'systems'
 
 export type ProjectOrigin = 'employment' | 'independent'
+
+export type PortfolioFilter =
+  | 'all'
+  | 'websites'
+  | 'systems'
+  | 'ecommerce'
+  | 'integrations'
+  | 'wego'
 
 export type DemoLink = {
   labelKey: string
@@ -36,6 +45,8 @@ export type PortfolioProject = {
   creditKey?: string
   /** i18n path prefix under portfolio.items.<id> */
   i18nKey: string
+  /** Extra filter facets beyond category/origin */
+  facets?: Array<'ecommerce' | 'integrations'>
 }
 
 /**
@@ -59,6 +70,7 @@ export const portfolioProjects: PortfolioProject[] = [
     origin: 'employment',
     creditKey: 'portfolio.credits.employment',
     i18nKey: 'sukria',
+    facets: ['integrations'],
   },
   {
     id: 'voltara',
@@ -98,6 +110,7 @@ export const portfolioProjects: PortfolioProject[] = [
     origin: 'independent',
     creditKey: 'portfolio.credits.devtasDemo',
     i18nKey: 'orchard',
+    facets: ['ecommerce', 'integrations'],
   },
   {
     id: 'logistics-system',
@@ -111,6 +124,7 @@ export const portfolioProjects: PortfolioProject[] = [
     origin: 'employment',
     creditKey: 'portfolio.credits.employment',
     i18nKey: 'logistics',
+    facets: ['integrations'],
   },
   {
     id: 'denova',
@@ -132,11 +146,46 @@ export const portfolioProjects: PortfolioProject[] = [
     i18nKey: 'denova',
   },
   {
+    id: 'ok-studio',
+    slug: 'ok-studio',
+    category: 'systems',
+    featured: true,
+    image: '/projects/ok-studio.png',
+    demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://ok-trainingcenter.com/' }],
+    technologies: ['React', 'TypeScript', 'Node.js', 'Full-Stack'],
+    origin: 'independent',
+    i18nKey: 'okStudio',
+  },
+  {
+    id: 'haotzma',
+    slug: 'haotzma',
+    category: 'websites',
+    featured: true,
+    image: '/projects/haotzma.png',
+    demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://haotzma-habib.com/he' }],
+    technologies: ['Next.js', 'React', 'i18n', 'RTL', 'Vercel'],
+    origin: 'independent',
+    i18nKey: 'haotzma',
+    facets: ['integrations'],
+  },
+  {
+    id: 'mila',
+    slug: 'mila',
+    category: 'websites',
+    featured: true,
+    image: '/projects/mila.png',
+    demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://milafin.com/' }],
+    technologies: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+    origin: 'independent',
+    i18nKey: 'mila',
+    facets: ['integrations'],
+  },
+  {
     id: 'smart-links',
     slug: 'smart-links',
     category: 'websites',
     featured: true,
-    image: '',
+    image: '/projects/smart-links.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://orelkoriatcoach.vercel.app/links' }],
     technologies: ['Next.js', 'React', 'Vercel'],
     origin: 'independent',
@@ -147,7 +196,7 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: 'fitness-coach',
     category: 'websites',
     featured: true,
-    image: '',
+    image: '/projects/fitness-coach.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://www.orelkorait.com' }],
     technologies: ['Next.js', 'Firebase', 'Vercel'],
     origin: 'independent',
@@ -158,7 +207,7 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: 'academy',
     category: 'websites',
     featured: true,
-    image: '',
+    image: '/projects/academy.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://devtasweb.vercel.app' }],
     technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Supabase', 'Vercel'],
     origin: 'independent',
@@ -169,7 +218,7 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: 'devtas-site',
     category: 'websites',
     featured: true,
-    image: '',
+    image: '/projects/devtas-site.png',
     demos: [{ labelKey: 'portfolio.demoLabels.liveDemo', url: '/#home' }],
     technologies: ['React', 'TypeScript', 'Vite', 'i18n', 'RTL'],
     origin: 'independent',
@@ -183,8 +232,20 @@ export const projectCategories: ProjectCategory[] = [
   'food-demo',
   'business',
   'lab',
+  'systems',
   'websites',
 ]
+
+export const portfolioFilters: PortfolioFilter[] = [
+  'all',
+  'websites',
+  'systems',
+  'ecommerce',
+  'integrations',
+  'wego',
+]
+
+const SYSTEM_CATEGORIES: ProjectCategory[] = ['erp', 'engineering', 'business', 'lab', 'systems']
 
 export function getProjectBySlug(slug: string) {
   return portfolioProjects.find((p) => p.slug === slug || p.aliases?.includes(slug))
@@ -195,9 +256,25 @@ export function getFeaturedProjects() {
 }
 
 export function getFeaturedSystems() {
-  return getFeaturedProjects().filter((p) => p.category !== 'websites')
+  return getFeaturedProjects().filter(
+    (p) => p.origin === 'independent' && p.category !== 'websites'
+  )
 }
 
 export function getFeaturedWebsites() {
-  return getFeaturedProjects().filter((p) => p.category === 'websites')
+  return getFeaturedProjects().filter((p) => p.category === 'websites' && p.origin === 'independent')
+}
+
+export function getWegoExperienceProjects() {
+  return getFeaturedProjects().filter((p) => p.origin === 'employment')
+}
+
+export function matchesPortfolioFilter(project: PortfolioProject, filter: PortfolioFilter) {
+  if (filter === 'all') return true
+  if (filter === 'wego') return project.origin === 'employment'
+  if (filter === 'websites') return project.category === 'websites'
+  if (filter === 'systems') return SYSTEM_CATEGORIES.includes(project.category)
+  if (filter === 'ecommerce') return project.facets?.includes('ecommerce') || project.category === 'food-demo'
+  if (filter === 'integrations') return project.facets?.includes('integrations') === true
+  return true
 }

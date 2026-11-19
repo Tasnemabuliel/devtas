@@ -74,12 +74,18 @@ export default function Accessibility({ iconSrc }: Props) {
       }
     }
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
     window.addEventListener('pageshow', handlePageShow)
     document.addEventListener('visibilitychange', handleVisibilityChange)
+    window.addEventListener('keydown', handleKeyDown)
 
     return () => {
       window.removeEventListener('pageshow', handlePageShow)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
 
@@ -97,9 +103,11 @@ export default function Accessibility({ iconSrc }: Props) {
     <div>
       <button
         className="a11y-fab"
+        type="button"
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-label="Accessibility"
+        aria-controls="a11y-panel"
+        aria-label={t('nav.home') === 'Home' ? 'Accessibility options' : 'אפשרויות נגישות'}
         onClick={() => setOpen(o => !o)}
       >
         {iconSrc ? (
@@ -117,7 +125,7 @@ export default function Accessibility({ iconSrc }: Props) {
         <span style={{display: iconSrc ? 'none' : 'block', fontSize: '24px'}}>♿</span>
       </button>
       {open && (
-        <div className="a11y-panel" role="dialog" aria-label="Accessibility Options">
+        <div id="a11y-panel" className="a11y-panel" role="dialog" aria-modal="true" aria-label="Accessibility Options">
           <div className="a11y-head">
             <strong>{t('accessibility.title')}</strong>
             <button className="a11y-close" aria-label="Close panel" onClick={() => setOpen(false)}>×</button>

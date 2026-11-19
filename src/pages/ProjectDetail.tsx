@@ -29,13 +29,28 @@ export default function ProjectDetail() {
 
       <div className="project-detail-grid">
         <div className="project-detail-media">
-          {project.image ? (
-            <img src={project.image} alt="" className="project-detail-img" />
-          ) : (
-            <div className="project-card-fallback project-detail-fallback" aria-hidden="true">
-              <span>{t(`${base}.name`).slice(0, 1)}</span>
+          <div className="browser-mockup project-detail-mockup">
+            <div className="browser-mockup-chrome" aria-hidden="true">
+              <span className="browser-dot browser-dot--red" />
+              <span className="browser-dot browser-dot--yellow" />
+              <span className="browser-dot browser-dot--green" />
+              <span className="browser-mockup-url">
+                {project.demos[0]?.url?.startsWith('http')
+                  ? new URL(project.demos[0].url).hostname.replace(/^www\./, '')
+                  : 'devtas'}
+              </span>
             </div>
-          )}
+            <div className="browser-mockup-viewport">
+              {project.image ? (
+                <img src={project.image} alt="" className="project-detail-img" />
+              ) : (
+                <div className="project-card-fallback project-detail-fallback" aria-hidden="true">
+                  <span>{t(`${base}.name`).slice(0, 1)}</span>
+                </div>
+              )}
+              <div className="project-card-gradient" aria-hidden="true" />
+            </div>
+          </div>
         </div>
 
         <div className="project-detail-copy">

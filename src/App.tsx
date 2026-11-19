@@ -7,6 +7,8 @@ import Accessibility from './components/Accessibility'
 import Chatbot from './components/Chatbot'
 import Loader from './components/Loader'
 import './styles.css'
+import './styles/studio.css'
+import { ScrollProgress } from './components/Motion'
 
 const Landing = lazy(() => import('./pages/Landing'))
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
@@ -112,9 +114,10 @@ export default function App() {
   return (
     <>
       {loading && <Loader />}
+      <ScrollProgress />
       <Navbar />
       <ScrollManager />
-      <main id="main" className="container">
+      <main id="main" className="page-shell">
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Landing />} />

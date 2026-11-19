@@ -5,6 +5,7 @@ const Hero = lazy(() => import('./Home'))
 const FeaturedProjects = lazy(() => import('./FeaturedProjects'))
 const Services = lazy(() => import('./Services'))
 const Tech = lazy(() => import('./Tech'))
+const Integrations = lazy(() => import('./Integrations'))
 const Process = lazy(() => import('./Process'))
 const About = lazy(() => import('./About'))
 const FAQSection = lazy(() => import('../components/FAQ/FAQSection'))
@@ -17,6 +18,7 @@ export default function Landing() {
       <FeaturedProjects />
       <Services />
       <Tech />
+      <Integrations />
       <Process />
       <About />
       <FAQSection />
