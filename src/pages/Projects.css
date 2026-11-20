@@ -4,13 +4,17 @@
   padding-block: 1rem 2.5rem;
 }
 
-.wego-experience {
-  margin-top: 2rem;
-  padding: 1.5rem 1.25rem 1.75rem;
+.wego-block {
+  margin-top: 2.25rem;
+  padding: 1.5rem 1.15rem 1.75rem;
   border-radius: 24px;
   border: 1px solid rgba(23, 58, 94, 0.12);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(243, 247, 251, 0.95));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(241, 246, 250, 0.98));
+}
+
+.wego-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.35rem) !important;
 }
 
 .wego-disclosure {
@@ -22,6 +26,23 @@
   color: var(--text-muted);
   font-size: 0.92rem;
   line-height: 1.6;
+}
+
+.systems-showcase {
+  margin-top: 0.5rem;
+}
+
+.wego-case--light {
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+.wego-case-copy--light h4 {
+  color: var(--navy);
+}
+
+.wego-case-copy--light p {
+  color: var(--text-muted);
 }
 
 .projects-grid {
@@ -198,9 +219,10 @@
 }
 
 .project-card-origin--employment {
-  color: #5b4a7a;
-  border-color: rgba(124, 92, 191, 0.25);
-  background: rgba(248, 245, 255, 0.95);
+  color: var(--navy);
+  border-color: rgba(23, 58, 94, 0.18);
+  background: rgba(23, 58, 94, 0.06);
+  font-weight: 650;
 }
 
 .project-card-origin--independent {
@@ -269,6 +291,17 @@
   align-items: center;
   gap: 0.55rem;
   margin-bottom: 0.35rem;
+}
+
+.project-employment-label {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(23, 58, 94, 0.12);
+  background: rgba(23, 58, 94, 0.05);
+  color: var(--navy);
+  font-size: 0.92rem;
+  font-weight: 650;
 }
 
 .project-detail-meta .section-eyebrow {
@@ -484,6 +517,106 @@
   font-size: 0.92rem;
 }
 
+.projects-carousel {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.projects-carousel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.projects-carousel-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--navy);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.projects-carousel-arrow:hover:not(:disabled) {
+  border-color: rgba(23, 58, 94, 0.28);
+  background: rgba(23, 58, 94, 0.04);
+}
+
+.projects-carousel-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.projects-carousel-indicator {
+  margin: 0.7rem 0 0;
+  text-align: center;
+  color: var(--navy);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.projects-carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
+}
+
+.projects-carousel-slide {
+  width: 100%;
+  max-width: 100%;
+}
+
+.projects-carousel-slide .project-card {
+  min-height: 34rem;
+}
+
+.projects-carousel-slide .project-card-media .browser-mockup-viewport,
+.projects-carousel-slide .project-card-img,
+.projects-carousel-slide .project-card-fallback {
+  aspect-ratio: 16 / 10;
+  min-height: 11.5rem;
+}
+
+.projects-carousel-slide .project-card-desc {
+  min-height: 3.2em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.projects-carousel-slide .project-card-functions {
+  display: none;
+}
+
+.projects-carousel-slide .project-tech {
+  min-height: 2rem;
+}
+
 @media (max-width: 980px) {
   .projects-grid,
   .project-detail-grid {
@@ -492,8 +625,30 @@
 }
 
 @media (max-width: 720px) {
+  .projects-desktop {
+    display: none !important;
+  }
+
+  .projects-carousel {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
   .projects-grid,
   .project-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .projects-subsection {
+    margin-top: 2rem;
+    padding-top: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-carousel-slide {
+    transform: none !important;
   }
 }

@@ -50,10 +50,20 @@ export default function ShowcaseProject({ project, flip = false, delay = 0 }: Pr
       </a>
 
       <div className="showcase-copy">
-        <p className="showcase-kicker">{t(`portfolio.categories.${project.category}`)}</p>
+        <div className="showcase-meta">
+          <p className="showcase-kicker">{t(`portfolio.kinds.${project.kind}`)}</p>
+          {project.origin === 'employment' && (
+            <span className="project-card-origin project-card-origin--employment">
+              {t('portfolio.originEmployment')}
+            </span>
+          )}
+        </div>
         <h3 className="showcase-title">
           <Link to={`/projects/${project.slug}`}>{title}</Link>
         </h3>
+        {project.origin === 'employment' && (
+          <p className="showcase-employment">{t('portfolio.employmentLabel')}</p>
+        )}
         <p className="showcase-desc">{desc}</p>
         {functions !== `${base}.functions` && (
           <p className="project-card-functions">

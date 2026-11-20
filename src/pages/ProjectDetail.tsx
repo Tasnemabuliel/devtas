@@ -55,17 +55,26 @@ export default function ProjectDetail() {
 
         <div className="project-detail-copy">
           <div className="project-detail-meta">
-            <p className="section-eyebrow">{t(`portfolio.categories.${project.category}`)}</p>
-            <span className={`project-card-origin project-card-origin--${project.origin}`}>
-              {project.origin === 'employment'
-                ? t('portfolio.originEmployment')
-                : t('portfolio.originIndependent')}
-            </span>
+            <p className="section-eyebrow">{t(`portfolio.kinds.${project.kind}`)}</p>
+            {project.origin === 'employment' && (
+              <span className="project-card-origin project-card-origin--employment">
+                {t('portfolio.originEmployment')}
+              </span>
+            )}
           </div>
           <h1 className="section-title">{t(`${base}.name`)}</h1>
           <p className="section-subtitle">{t(`${base}.short`)}</p>
+          {project.origin === 'employment' && (
+            <p className="project-employment-label">{t('portfolio.employmentLabel')}</p>
+          )}
 
           <div className="project-detail-blocks">
+            {project.origin === 'employment' && (
+              <section>
+                <h2>{t('portfolio.employmentLabel')}</h2>
+                <p>{t('portfolio.employmentNote')}</p>
+              </section>
+            )}
             <section>
               <h2>{t('portfolio.purpose')}</h2>
               <p>{t(`${base}.purpose`)}</p>

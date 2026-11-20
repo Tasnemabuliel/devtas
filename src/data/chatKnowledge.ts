@@ -9,11 +9,11 @@ export type ChatQuickAction = {
 }
 
 export const chatQuickActions: ChatQuickAction[] = [
+  { id: 'website', labelKey: 'chatbot.quick.website', action: 'reply', replyKey: 'chatbot.replies.wantWebsite' },
+  { id: 'system', labelKey: 'chatbot.quick.system', action: 'reply', replyKey: 'chatbot.replies.wantSystem' },
   { id: 'services', labelKey: 'chatbot.quick.services', action: 'services', replyKey: 'chatbot.replies.services' },
-  { id: 'projects', labelKey: 'chatbot.quick.projects', action: 'projects', replyKey: 'chatbot.replies.projects' },
   { id: 'process', labelKey: 'chatbot.quick.process', action: 'reply', replyKey: 'chatbot.replies.process' },
   { id: 'contact', labelKey: 'chatbot.quick.contact', action: 'lead' },
-  { id: 'whatsapp', labelKey: 'chatbot.quick.whatsapp', action: 'whatsapp' },
 ]
 
 export const projectTypeOptions = [

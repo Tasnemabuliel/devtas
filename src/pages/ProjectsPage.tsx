@@ -1,10 +1,13 @@
 import { useMemo, useState } from 'react'
 import ProjectCard from '../components/ProjectCard'
-import { Reveal } from '../components/Motion'
+import ProjectsCarousel from '../components/ProjectsCarousel'
+import ShowcaseProject from '../components/ShowcaseProject'
+import { Reveal, Stagger, StaggerItem } from '../components/Motion'
 import {
+  getSystemProjects,
+  getWebsiteProjects,
   matchesPortfolioFilter,
   portfolioFilters,
-  portfolioProjects,
   type PortfolioFilter,
 } from '../data/projects'
 import { useI18n } from '../i18n/I18nProvider'
@@ -14,20 +17,23 @@ export default function ProjectsPage() {
   const { t } = useI18n()
   const [filter, setFilter] = useState<PortfolioFilter>('all')
 
-  const filtered = useMemo(
-    () => portfolioProjects.filter((project) => matchesPortfolioFilter(project, filter)),
+  const websites = useMemo(
+    () => getWebsiteProjects().filter((p) => matchesPortfolioFilter(p, filter)),
+    [filter]
+  )
+  const systems = useMemo(
+    () => getSystemProjects().filter((p) => matchesPortfolioFilter(p, filter)),
     [filter]
   )
 
-  const filterLabel = (key: PortfolioFilter) =>
-    key === 'all' ? t('portfolio.filterAll') : t(`portfolio.filters.${key}`)
+  const empty = websites.length === 0 && systems.length === 0
 
   return (
     <section className="section projects-page">
       <Reveal>
-        <header className="section-header">
+        <header className="section-header section-header--wide">
           <p className="section-eyebrow">{t('nav.projects')}</p>
-          <h1 className="section-title">{t('portfolio.allTitle')}</h1>
+          <h1 className="section-title section-title--xl">{t('portfolio.allTitle')}</h1>
           <p className="section-subtitle">{t('portfolio.allSubtitle')}</p>
         </header>
       </Reveal>
@@ -42,20 +48,65 @@ export default function ProjectsPage() {
               aria-pressed={filter === item}
               onClick={() => setFilter(item)}
             >
-              {filterLabel(item)}
+              {item === 'all' ? t('portfolio.filterAll') : t(`portfolio.filters.${item}`)}
             </button>
           ))}
         </div>
       </Reveal>
 
-      {filtered.length === 0 ? (
+      {empty ? (
         <p className="projects-empty">{t('portfolio.emptyFilter')}</p>
       ) : (
-        <div className="projects-grid">
-          {filtered.map((project, index) => (
-            <ProjectCard key={project.id} project={project} revealDelay={`${60 + index * 50}ms`} />
-          ))}
-        </div>
+        <>
+          {(filter === 'all' || filter === 'websites') && websites.length > 0 && (
+            <div className="projects-subsection">
+              <Reveal>
+                <header className="section-header projects-subsection-header">
+                  <h2 className="projects-subsection-title">{t('portfolio.websitesTitle')}</h2>
+                  <p className="section-subtitle">{t('portfolio.websitesSubtitle')}</p>
+                </header>
+              </Reveal>
+              <Stagger className="projects-grid projects-desktop">
+                {websites.map((project) => (
+                  <StaggerItem key={project.id}>
+                    <ProjectCard project={project} variant="website" />
+                  </StaggerItem>
+                ))}
+              </Stagger>
+              <ProjectsCarousel
+                projects={websites}
+                variant="website"
+                label={t('portfolio.websitesTitle')}
+              />
+            </div>
+          )}
+
+          {(filter === 'all' || filter === 'systems') && systems.length > 0 && (
+            <div className="projects-subsection">
+              <Reveal>
+                <header className="section-header projects-subsection-header">
+                  <h2 className="projects-subsection-title">{t('portfolio.systemsTitle')}</h2>
+                  <p className="section-subtitle">{t('portfolio.systemsSubtitle')}</p>
+                </header>
+              </Reveal>
+              <div className="showcase-list systems-showcase projects-desktop">
+                {systems.map((project, index) => (
+                  <ShowcaseProject
+                    key={project.id}
+                    project={project}
+                    flip={index % 2 === 1}
+                    delay={index * 0.04}
+                  />
+                ))}
+              </div>
+              <ProjectsCarousel
+                projects={systems}
+                variant="system"
+                label={t('portfolio.systemsTitle')}
+              />
+            </div>
+          )}
+        </>
       )}
     </section>
   )

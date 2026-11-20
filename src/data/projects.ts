@@ -5,17 +5,14 @@ export type ProjectCategory =
   | 'business'
   | 'lab'
   | 'websites'
+  | 'landing'
   | 'systems'
+
+export type ProjectKind = 'website' | 'landing' | 'system'
 
 export type ProjectOrigin = 'employment' | 'independent'
 
-export type PortfolioFilter =
-  | 'all'
-  | 'websites'
-  | 'systems'
-  | 'ecommerce'
-  | 'integrations'
-  | 'wego'
+export type PortfolioFilter = 'all' | 'websites' | 'systems'
 
 export type DemoLink = {
   labelKey: string
@@ -32,32 +29,26 @@ export type DemoCredential = {
 export type PortfolioProject = {
   id: string
   slug: string
-  /** Old slugs that should still resolve */
   aliases?: string[]
   category: ProjectCategory
+  kind: ProjectKind
   featured: boolean
   image: string
   demos: DemoLink[]
   technologies: string[]
   credentials?: DemoCredential[]
-  /** How the work relates to DEVATAS branding */
   origin: ProjectOrigin
   creditKey?: string
-  /** i18n path prefix under portfolio.items.<id> */
   i18nKey: string
-  /** Extra filter facets beyond category/origin */
   facets?: Array<'ecommerce' | 'integrations'>
 }
 
-/**
- * Central portfolio registry — add future projects here.
- * Employment systems are experience showcases, not DEVATAS-branded products.
- */
 export const portfolioProjects: PortfolioProject[] = [
   {
     id: 'sukria',
     slug: 'sukria',
     category: 'erp',
+    kind: 'system',
     featured: true,
     image: '/projects/sukria.png',
     demos: [{ labelKey: 'portfolio.demoLabels.primary', url: 'https://sweetapp-demo.vercel.app/login?next=%2F' }],
@@ -76,6 +67,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'voltara',
     slug: 'voltara',
     category: 'engineering',
+    kind: 'system',
     featured: true,
     image: '/projects/voltara.png',
     demos: [
@@ -84,16 +76,8 @@ export const portfolioProjects: PortfolioProject[] = [
     ],
     technologies: ['React', 'TypeScript', 'Vercel'],
     credentials: [
-      {
-        roleKey: 'portfolio.items.voltara.roles.office',
-        username: 'admin',
-        password: 'VoltaraDemo123!',
-      },
-      {
-        roleKey: 'portfolio.items.voltara.roles.field',
-        username: 'foreman1',
-        password: 'VoltaraField123!',
-      },
+      { roleKey: 'portfolio.items.voltara.roles.office', username: 'admin', password: 'VoltaraDemo123!' },
+      { roleKey: 'portfolio.items.voltara.roles.field', username: 'foreman1', password: 'VoltaraField123!' },
     ],
     origin: 'employment',
     creditKey: 'portfolio.credits.employment',
@@ -103,6 +87,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'orchard-crisp',
     slug: 'orchard-crisp',
     category: 'food-demo',
+    kind: 'system',
     featured: true,
     image: '/projects/orchard.png',
     demos: [{ labelKey: 'portfolio.demoLabels.primary', url: 'https://crispy-demo.vercel.app/' }],
@@ -117,6 +102,7 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: 'logistics-system',
     aliases: ['wego-business'],
     category: 'business',
+    kind: 'system',
     featured: true,
     image: '/projects/wego.png',
     demos: [{ labelKey: 'portfolio.demoLabels.primary', url: 'https://mangebuss.vercel.app/login?next=%2F' }],
@@ -130,6 +116,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'denova',
     slug: 'denova',
     category: 'lab',
+    kind: 'system',
     featured: true,
     image: '/projects/denova.png',
     demos: [{ labelKey: 'portfolio.demoLabels.primary', url: 'https://opal-demo-mu.vercel.app/' }],
@@ -149,6 +136,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'ok-studio',
     slug: 'ok-studio',
     category: 'systems',
+    kind: 'system',
     featured: true,
     image: '/projects/ok-studio.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://ok-trainingcenter.com/' }],
@@ -160,6 +148,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'haotzma',
     slug: 'haotzma',
     category: 'websites',
+    kind: 'website',
     featured: true,
     image: '/projects/haotzma.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://haotzma-habib.com/he' }],
@@ -172,6 +161,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'mila',
     slug: 'mila',
     category: 'websites',
+    kind: 'website',
     featured: true,
     image: '/projects/mila.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://milafin.com/' }],
@@ -183,7 +173,8 @@ export const portfolioProjects: PortfolioProject[] = [
   {
     id: 'smart-links',
     slug: 'smart-links',
-    category: 'websites',
+    category: 'landing',
+    kind: 'landing',
     featured: true,
     image: '/projects/smart-links.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://orelkoriatcoach.vercel.app/links' }],
@@ -195,6 +186,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'fitness-coach',
     slug: 'fitness-coach',
     category: 'websites',
+    kind: 'website',
     featured: true,
     image: '/projects/fitness-coach.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://www.orelkorait.com' }],
@@ -205,7 +197,8 @@ export const portfolioProjects: PortfolioProject[] = [
   {
     id: 'academy',
     slug: 'academy',
-    category: 'websites',
+    category: 'systems',
+    kind: 'system',
     featured: true,
     image: '/projects/academy.png',
     demos: [{ labelKey: 'portfolio.demoLabels.viewSite', url: 'https://devtasweb.vercel.app' }],
@@ -217,6 +210,7 @@ export const portfolioProjects: PortfolioProject[] = [
     id: 'devtas-site',
     slug: 'devtas-site',
     category: 'websites',
+    kind: 'website',
     featured: true,
     image: '/projects/devtas-site.png',
     demos: [{ labelKey: 'portfolio.demoLabels.liveDemo', url: '/#home' }],
@@ -226,26 +220,7 @@ export const portfolioProjects: PortfolioProject[] = [
   },
 ]
 
-export const projectCategories: ProjectCategory[] = [
-  'erp',
-  'engineering',
-  'food-demo',
-  'business',
-  'lab',
-  'systems',
-  'websites',
-]
-
-export const portfolioFilters: PortfolioFilter[] = [
-  'all',
-  'websites',
-  'systems',
-  'ecommerce',
-  'integrations',
-  'wego',
-]
-
-const SYSTEM_CATEGORIES: ProjectCategory[] = ['erp', 'engineering', 'business', 'lab', 'systems']
+export const portfolioFilters: PortfolioFilter[] = ['all', 'websites', 'systems']
 
 export function getProjectBySlug(slug: string) {
   return portfolioProjects.find((p) => p.slug === slug || p.aliases?.includes(slug))
@@ -255,26 +230,25 @@ export function getFeaturedProjects() {
   return portfolioProjects.filter((p) => p.featured)
 }
 
-export function getFeaturedSystems() {
-  return getFeaturedProjects().filter(
-    (p) => p.origin === 'independent' && p.category !== 'websites'
-  )
+export function isWebsiteProject(project: PortfolioProject) {
+  return project.kind === 'website' || project.kind === 'landing'
 }
 
-export function getFeaturedWebsites() {
-  return getFeaturedProjects().filter((p) => p.category === 'websites' && p.origin === 'independent')
+export function isSystemProject(project: PortfolioProject) {
+  return project.kind === 'system'
 }
 
-export function getWegoExperienceProjects() {
-  return getFeaturedProjects().filter((p) => p.origin === 'employment')
+export function getWebsiteProjects() {
+  return portfolioProjects.filter((p) => p.featured && isWebsiteProject(p))
+}
+
+export function getSystemProjects() {
+  return portfolioProjects.filter((p) => p.featured && isSystemProject(p))
 }
 
 export function matchesPortfolioFilter(project: PortfolioProject, filter: PortfolioFilter) {
   if (filter === 'all') return true
-  if (filter === 'wego') return project.origin === 'employment'
-  if (filter === 'websites') return project.category === 'websites'
-  if (filter === 'systems') return SYSTEM_CATEGORIES.includes(project.category)
-  if (filter === 'ecommerce') return project.facets?.includes('ecommerce') || project.category === 'food-demo'
-  if (filter === 'integrations') return project.facets?.includes('integrations') === true
+  if (filter === 'websites') return isWebsiteProject(project)
+  if (filter === 'systems') return isSystemProject(project)
   return true
 }

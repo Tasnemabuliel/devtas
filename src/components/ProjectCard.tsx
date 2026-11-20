@@ -7,6 +7,7 @@ import type { PortfolioProject } from '../data/projects'
 type Props = {
   project: PortfolioProject
   revealDelay?: string
+  variant?: 'website' | 'system'
 }
 
 function previewHref(project: PortfolioProject) {
@@ -24,20 +25,19 @@ function previewHost(href: string) {
   return 'devtas'
 }
 
-export default function ProjectCard({ project, revealDelay = '0ms' }: Props) {
+export default function ProjectCard({ project, revealDelay = '0ms', variant = 'website' }: Props) {
   const { t } = useI18n()
   const base = `portfolio.items.${project.i18nKey}`
   const title = t(`${base}.name`)
   const desc = t(`${base}.short`)
   const functions = t(`${base}.functions`)
   const primaryDemo = project.demos[0]
-  const categoryLabel = t(`portfolio.categories.${project.category}`)
-  const originLabel =
-    project.origin === 'employment' ? t('portfolio.originEmployment') : t('portfolio.originIndependent')
+  const kindLabel = t(`portfolio.kinds.${project.kind}`)
   const href = previewHref(project)
   const isExternal = href.startsWith('http')
   const hasImage = Boolean(project.image)
   const host = previewHost(href)
+  const showFunctions = variant === 'system' && functions !== `${base}.functions`
 
   const mediaContent = (
     <>
@@ -67,8 +67,12 @@ export default function ProjectCard({ project, revealDelay = '0ms' }: Props) {
       </div>
 
       <div className="project-card-badges">
-        <span className="project-card-category">{categoryLabel}</span>
-        <span className={`project-card-origin project-card-origin--${project.origin}`}>{originLabel}</span>
+        <span className="project-card-category">{kindLabel}</span>
+        {project.origin === 'employment' && (
+          <span className="project-card-origin project-card-origin--employment">
+            {t('portfolio.originEmployment')}
+          </span>
+        )}
       </div>
 
       <span className="project-card-open-hint" aria-hidden="true">
@@ -79,7 +83,7 @@ export default function ProjectCard({ project, revealDelay = '0ms' }: Props) {
 
   return (
     <article
-      className="project-card"
+      className={`project-card project-card--${variant}`}
       data-reveal="up"
       style={{ '--reveal-delay': revealDelay } as CSSProperties}
     >
@@ -109,7 +113,7 @@ export default function ProjectCard({ project, revealDelay = '0ms' }: Props) {
         </h3>
         <p className="project-card-desc">{desc}</p>
 
-        {functions !== `${base}.functions` && (
+        {showFunctions && (
           <p className="project-card-functions">
             <span>{t('portfolio.functions')}:</span> {functions}
           </p>
